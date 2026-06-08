@@ -39,10 +39,12 @@ Türkçe yaz, samimi ve destekleyici bir dil kullan. 150 kelimeyi geçme.`;
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${API_KEY}`
+          "Authorization": `Bearer ${API_KEY}`,
+          "HTTP-Referer": "https://ahmetyusufaltinok.github.io",
+          "X-Title": "Cocuk Gelisim Sistemi"
         },
         body: JSON.stringify({
-          model: "meta-llama/llama-3.1-8b-instruct:free",
+          model: "mistralai/mistral-7b-instruct:free",
           messages: [{ role: "user", content: promptText }]
         })
       }
