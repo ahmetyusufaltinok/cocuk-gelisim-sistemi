@@ -1,7 +1,9 @@
-// ===================================
-// GEMINI API
-// ===================================
-const GEMINI_API_KEY = "AQ.Ab8RN6IHmmKntSxrw_b_ekygjG5Lvvi8ISPU_QNz8gFK13lZig";
+// API anahtarını localStorage'dan al, yoksa sor
+let GEMINI_API_KEY = localStorage.getItem("gemini_key");
+if (!GEMINI_API_KEY) {
+  GEMINI_API_KEY = prompt("Gemini API Anahtarı:");
+  if (GEMINI_API_KEY) localStorage.setItem("gemini_key", GEMINI_API_KEY);
+}
 
 async function geminiAnaliz(yasGrubu, sonuclar) {
   const kategoriler = {
