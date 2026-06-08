@@ -1,7 +1,7 @@
 // ===================================
 // GEMINI API
 // ===================================
-const GEMINI_API_KEY = "BURAYA_ANAHTARINI_YAZ";
+const GEMINI_API_KEY = "AQ.Ab8RN6LHFBnjWppDxEncBow-jZKFZieZUEWxrcCeq0J7Klfjqw";
 
 async function geminiAnaliz(yasGrubu, sonuclar) {
   const kategoriler = {
