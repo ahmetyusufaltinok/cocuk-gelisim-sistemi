@@ -1,7 +1,7 @@
 // ===================================
 // GEMINI API
 // ===================================
-const GEMINI_API_KEY = "AQ.Ab8RN6LHFBnjWppDxEncBow-jZKFZieZUEWxrcCeq0J7Klfjqw";
+const GEMINI_API_KEY = "AQ.Ab8RN6IHmmKntSxrw_b_ekygjG5Lvvi8ISPU_QNz8gFK13lZig";
 
 async function geminiAnaliz(yasGrubu, sonuclar) {
   const kategoriler = {
