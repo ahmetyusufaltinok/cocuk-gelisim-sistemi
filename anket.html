@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gelişim Anketi</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- YAŞ SEÇİM EKRANI -->
+  <div class="anket-container" id="yas-secim">
+    <h1>Çocuğunuzun Yaşı</h1>
+    <p>Doğru öneriler için yaş grubunu seçin.</p>
+    <div class="yas-grid">
+      <button class="yas-btn" onclick="yasSec('6-12ay')">
+        <span class="yas-emoji">👶</span>
+        <span class="yas-label">6-12 Ay</span>
+      </button>
+      <button class="yas-btn" onclick="yasSec('1-2yas')">
+        <span class="yas-emoji">🧒</span>
+        <span class="yas-label">1-2 Yaş</span>
+      </button>
+      <button class="yas-btn" onclick="yasSec('3-4yas')">
+        <span class="yas-emoji">👦</span>
+        <span class="yas-label">3-4 Yaş</span>
+      </button>
+      <button class="yas-btn" onclick="yasSec('5-6yas')">
+        <span class="yas-emoji">🎒</span>
+        <span class="yas-label">5-6 Yaş</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ANKET EKRANI -->
+  <div class="anket-container" id="anket-bolumu" style="display:none">
+    <div class="anket-header">
+      <h1>Çocuk Gelişim Anketi</h1>
+      <p>Çocuğunuzu gözlemleyerek cevaplayın.</p>
+      <div class="ilerleme-bar">
+        <div class="ilerleme-dolu" id="ilerleme"></div>
+      </div>
+      <p id="soru-sayac">Soru 1 / 15</p>
+    </div>
+
+    <div class="soru-kutusu" id="soru-kutusu"></div>
+
+    <div class="butonlar">
+      <button class="btn-geri" id="btn-geri" onclick="oncekiSoru()">← Geri</button>
+      <button class="btn-ileri" id="btn-ileri" onclick="sonrakiSoru()">İleri →</button>
+    </div>
+  </div>
+
+  <script src="js/anket.js"></script>
+</body>
+</html>
