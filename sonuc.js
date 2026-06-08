@@ -21,16 +21,19 @@ async function geminiAnaliz(yasGrubu, sonuclar) {
     .map(k => `${kategoriler[k]}: %${sonuclar[k]}`)
     .join(", ");
 
-  const promptText = `Sen bir çocuk gelişim uzmanısın. Bir ebeveyn çocuğu için gelişim anketi doldurdu.
+  const promptText = `Sen Montessori Atölyesi'nin çocuk gelişim uzmanısın. Bir ebeveyn montessoriatolyesi.com sitesinde çocuğu için gelişim anketi doldurdu.
 
 Yaş grubu: ${yasGrubu}
 Gelişim profili: ${sorunlar || "Normal gelişim"}
 
 Lütfen şunları yaz:
-1. 2-3 cümlelik kısa bir gelişim değerlendirmesi
-2. Ebeveyne 3 somut öneri
+1. 2-3 cümlelik kısa ve samimi bir gelişim değerlendirmesi
+2. Bu gelişim alanını destekleyen Montessori oyuncaklarının 2-3 somut faydası
+3. Ebeveyne 2 pratik öneri
 
-Türkçe yaz, samimi ve destekleyici bir dil kullan. 150 kelimeyi geçme.`;
+Önemli: Montessori yönteminin bilimsel temelli olduğunu, çocuğun bağımsızlığını ve doğal gelişimini desteklediğini vurgula. montessoriatolyesi.com'daki ürünlerin bu gelişimi desteklediğini belirt.
+
+Türkçe yaz, samimi ve destekleyici bir dil kullan. 200 kelimeyi geçme.`;
 
   try {
     const response = await fetch(
