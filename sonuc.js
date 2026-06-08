@@ -44,7 +44,7 @@ Türkçe yaz, samimi ve destekleyici bir dil kullan. 150 kelimeyi geçme.`;
           "X-Title": "Cocuk Gelisim Sistemi"
         },
         body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct:free",
+        model: "openrouter/free",
           messages: [{ role: "user", content: promptText }]
         })
       }
