@@ -1,11 +1,7 @@
 // ===================================
 // OPENROUTER API
 // ===================================
-let API_KEY = localStorage.getItem("api_key");
-if (!API_KEY) {
-  API_KEY = prompt("API Anahtarı:");
-  if (API_KEY) localStorage.setItem("api_key", API_KEY);
-}
+const API_KEY = "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";
 
 async function geminiAnaliz(yasGrubu, sonuclar) {
   const kategoriler = {
@@ -47,7 +43,7 @@ Türkçe yaz, samimi ve destekleyici bir dil kullan. 200 kelimeyi geçme.`;
           "X-Title": "Cocuk Gelisim Sistemi"
         },
         body: JSON.stringify({
-        model: "openrouter/free",
+          model: "openrouter/free",
           messages: [{ role: "user", content: promptText }]
         })
       }
