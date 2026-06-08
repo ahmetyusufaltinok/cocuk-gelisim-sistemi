@@ -63,37 +63,43 @@ const urunler = {
     isim: "Montessori Aktivite Panosu",
     aciklama: "Motor beceri, bağımsızlık ve odak geliştirici",
     link: "https://montessoriatolyesi.com/products/montessori-aktivite-panosu",
-    etiket: "⭐ Her Çocuğa Önerilen"
+    etiket: "⭐ Her Çocuğa Önerilen",
+    resim: "https://montessoriatolyesi.com/cdn/shop/files/Untitled_design_23.png"
   },
   isikliPano: {
     isim: "Montessori Işıklı Ahşap Pano",
     aciklama: "Motor + duyusal + dikkat geliştirici",
     link: "https://montessoriatolyesi.com/products/montessori-isikli-ahsap-pano",
-    etiket: "🎯 Profile Özel"
+    etiket: "🎯 Profile Özel",
+    resim: "https://montessoriatolyesi.com/cdn/shop/files/Kendibagimsizliginadogrubiradim_1.png"
   },
   balikTutma: {
     isim: "Eğitici Balık Tutma Seti",
     aciklama: "El-göz koordinasyonu ve odak geliştirici",
     link: "https://montessoriatolyesi.com/products/cocuk-balik-tutma-seti",
-    etiket: "🎯 Profile Özel"
+    etiket: "🎯 Profile Özel",
+    resim: "https://montessoriatolyesi.com/cdn/shop/files/Kendibagimsizliginadogrubiradim_3.png"
   },
   sebzeMeyve: {
     isim: "Ahşap Sebze Meyve Eşleştirme",
     aciklama: "Dil gelişimi ve bilişsel beceri",
     link: "https://montessoriatolyesi.com/products/montessori-ahsap-sebze-meyve-gelisim-ve-kesif-arabasi",
-    etiket: "🎯 Profile Özel"
+    etiket: "🎯 Profile Özel",
+    resim: "https://montessoriatolyesi.com/cdn/shop/files/Kendibagimsizliginadogrubiradim_9.png"
   },
   yumurtaEslestirme: {
     isim: "Yumurta Şekil Eşleştirme",
     aciklama: "Motor beceri ve şekil algısı",
     link: "https://montessoriatolyesi.com/products/montessori-yumurta-sekil-eslestirme-motor-beceri-oyuncagi",
-    etiket: "🎯 Profile Özel"
+    etiket: "🎯 Profile Özel",
+    resim: "https://montessoriatolyesi.com/cdn/shop/files/1_d30a01cb-d4f3-4356-bb82-68e31c6cbceb.png"
   },
   duyusalOyuncak: {
     isim: "Montessori Silikon Duyusal Oyuncak",
     aciklama: "Duyusal gelişim ve motor beceri",
     link: "https://montessoriatolyesi.com/products/montessori-silikon-duyusal-oyuncak",
-    etiket: "🎯 Profile Özel"
+    etiket: "🎯 Profile Özel",
+    resim: "https://montessoriatolyesi.com/cdn/shop/files/Kendibagimsizliginadogrubiradim_5.png"
   }
 };
 
@@ -178,7 +184,6 @@ window.onload = async function() {
   grafikGoster(sonuclar);
   oneriGoster(sonuclar);
 
-  // YZ analizi
   const yzDiv = document.getElementById("yz-analiz");
   if (yzDiv) {
     yzDiv.innerHTML = "<p style='color:#666; font-style:italic; text-align:center; padding:20px;'>🤖 Yapay zeka analiz yapıyor...</p>";
@@ -259,6 +264,7 @@ function oneriGoster(sonuclar) {
   html += `
     <h3 style="margin-top:25px">🏆 Önerilen Temel Ürün</h3>
     <div class="urun-kart ana-urun">
+      <img src="${urunler.aktivitePanosu.resim}" alt="${urunler.aktivitePanosu.isim}" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
       <div class="urun-bilgi">
         <span class="urun-etiket">⭐ Her Çocuğa Önerilen</span>
         <strong>${urunler.aktivitePanosu.isim}</strong>
@@ -282,6 +288,7 @@ function oneriGoster(sonuclar) {
       const urun = urunler[urunKey];
       html += `
         <div class="urun-kart">
+          <img src="${urun.resim}" alt="${urun.isim}" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
           <div class="urun-bilgi">
             <span class="urun-etiket">${urun.etiket}</span>
             <strong>${urun.isim}</strong>
