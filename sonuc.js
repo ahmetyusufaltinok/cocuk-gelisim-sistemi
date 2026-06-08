@@ -1,4 +1,52 @@
 // ===================================
+// GEMINI API
+// ===================================
+const GEMINI_API_KEY = "BURAYA_ANAHTARINI_YAZ";
+
+async function geminiAnaliz(yasGrubu, sonuclar) {
+  const kategoriler = {
+    motor: "Motor Beceri",
+    dil: "Dil Gelişimi",
+    sosyal: "Sosyal Gelişim",
+    baglanma: "Bağımsızlık",
+    dehb: "Dikkat & Odak"
+  };
+
+  const sorunlar = Object.keys(sonuclar)
+    .filter(k => sonuclar[k] > 30)
+    .map(k => `${kategoriler[k]}: %${sonuclar[k]}`)
+    .join(", ");
+
+  const prompt = `Sen bir çocuk gelişim uzmanısın. Bir ebeveyn çocuğu için gelişim anketi doldurdu.
+
+Yaş grubu: ${yasGrubu}
+Gelişim profili: ${sorunlar || "Normal gelişim"}
+
+Lütfen şunları yaz:
+1. 2-3 cümlelik kısa bir gelişim değerlendirmesi
+2. Ebeveyne 3 somut öneri
+
+Türkçe yaz, samimi ve destekleyici bir dil kullan. 150 kelimeyi geçme.`;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      }
+    );
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text;
+  } catch (e) {
+    return null;
+  }
+}
+
+// ===================================
 // ÜRÜN VERİTABANI
 // ===================================
 const urunler = {
@@ -48,35 +96,35 @@ const kategoriBilgi = {
     baslik: "Motor Beceri Desteği",
     emoji: "✋",
     renk: "#27ae60",
-    aciklama: "Çocuğunuz ince motor becerilerinde destek gerektirebilir. Kalem tutma, küçük nesneleri kavrama ve el-göz koordinasyonu geliştirilebilir.",
+    aciklama: "Çocuğunuz ince motor becerilerinde destek gerektirebilir.",
     ekUrunler: ["yumurtaEslestirme", "balikTutma"]
   },
   dil: {
     baslik: "Dil Gelişimi Desteği",
     emoji: "🗣️",
     renk: "#3498db",
-    aciklama: "Çocuğunuzun dil ve iletişim becerileri desteklenebilir. Kelime dağarcığı ve kendini ifade etme güçlendirilebilir.",
+    aciklama: "Çocuğunuzun dil ve iletişim becerileri desteklenebilir.",
     ekUrunler: ["sebzeMeyve", "isikliPano"]
   },
   sosyal: {
     baslik: "Sosyal Gelişim Desteği",
     emoji: "🤝",
     renk: "#f39c12",
-    aciklama: "Çocuğunuzun sosyal becerileri desteklenebilir. Arkadaşlık kurma ve duygusal ifade geliştirilebilir.",
+    aciklama: "Çocuğunuzun sosyal becerileri desteklenebilir.",
     ekUrunler: ["balikTutma", "sebzeMeyve"]
   },
   baglanma: {
     baslik: "Bağımsızlık Desteği",
     emoji: "🌱",
     renk: "#9b59b6",
-    aciklama: "Çocuğunuz bağımsızlık becerilerinde destek gerektirebilir. Özgüven ve tek başına yapabilme güçlendirilebilir.",
+    aciklama: "Çocuğunuz bağımsızlık becerilerinde destek gerektirebilir.",
     ekUrunler: ["aktivitePanosu", "yumurtaEslestirme"]
   },
   dehb: {
     baslik: "Dikkat & Odak Desteği",
     emoji: "🎯",
     renk: "#e74c3c",
-    aciklama: "Çocuğunuz dikkat ve odaklanma alanında destek gerektirebilir. Konsantrasyon ve dürtü kontrolü geliştirilebilir.",
+    aciklama: "Çocuğunuz dikkat ve odaklanma alanında destek gerektirebilir.",
     ekUrunler: ["balikTutma", "isikliPano"]
   }
 };
@@ -91,16 +139,14 @@ function analizeEt(cevaplar, sorular) {
   sorular.forEach(function(soru, index) {
     var cevap = cevaplar[index];
     if (cevap === undefined || cevap === null) return;
-    var cevapSayi = parseInt(cevap);
-    puanlar[soru.kategori] += cevapSayi;
+    puanlar[soru.kategori] += parseInt(cevap);
     sayilar[soru.kategori]++;
   });
 
   let sonuclar = {};
   for (var k in puanlar) {
     if (sayilar[k] === 0) continue;
-    var max = sayilar[k] * 2;
-    sonuclar[k] = Math.round((puanlar[k] / max) * 100);
+    sonuclar[k] = Math.round((puanlar[k] / (sayilar[k] * 2)) * 100);
   }
   return sonuclar;
 }
@@ -108,7 +154,7 @@ function analizeEt(cevaplar, sorular) {
 // ===================================
 // SAYFA YÜKLENINCE
 // ===================================
-window.onload = function() {
+window.onload = async function() {
   const cevaplar = JSON.parse(localStorage.getItem("cevaplar"));
   const sorular = JSON.parse(localStorage.getItem("sorular"));
   const yasGrubu = localStorage.getItem("yasGrubu");
@@ -122,6 +168,22 @@ window.onload = function() {
 
   grafikGoster(sonuclar);
   oneriGoster(sonuclar);
+
+  // Gemini YZ analizi
+  const yzDiv = document.getElementById("yz-analiz");
+  if (yzDiv) {
+    yzDiv.innerHTML = "<p style='color:#666; font-style:italic; text-align:center; padding:20px;'>🤖 Yapay zeka analiz yapıyor...</p>";
+    const analiz = await geminiAnaliz(yasGrubu, sonuclar);
+    if (analiz) {
+      yzDiv.innerHTML = `
+        <div style="background:#f3eff9; border-left:4px solid #4B3263; padding:20px; border-radius:10px; margin-bottom:25px;">
+          <h3 style="color:#4B3263; margin-bottom:12px;">🤖 Yapay Zeka Değerlendirmesi</h3>
+          <p style="color:#333; line-height:1.8; white-space:pre-wrap;">${analiz}</p>
+        </div>`;
+    } else {
+      yzDiv.innerHTML = "";
+    }
+  }
 };
 
 // ===================================
@@ -164,13 +226,10 @@ function grafikGoster(sonuclar) {
 // ===================================
 function oneriGoster(sonuclar) {
   const div = document.getElementById("oneri-kutusu");
-
-  // %30 üzeri kategorileri bul
   const destekGereken = Object.keys(sonuclar).filter(k => sonuclar[k] > 30 && k in kategoriBilgi);
 
   let html = "";
 
-  // Destek gereken kategori varsa göster
   if (destekGereken.length > 0) {
     destekGereken.forEach(k => {
       const bilgi = kategoriBilgi[k];
@@ -188,7 +247,6 @@ function oneriGoster(sonuclar) {
       </div>`;
   }
 
-  // Her zaman Aktivite Panosu öner
   html += `
     <h3 style="margin-top:25px">🏆 Önerilen Temel Ürün</h3>
     <div class="urun-kart ana-urun">
@@ -200,7 +258,6 @@ function oneriGoster(sonuclar) {
       <a href="${urunler.aktivitePanosu.link}" target="_blank" class="urun-btn">İncele →</a>
     </div>`;
 
-  // Profile özel ek ürünler
   if (destekGereken.length > 0) {
     const ekUrunSeti = new Set();
     destekGereken.forEach(k => {
@@ -208,7 +265,7 @@ function oneriGoster(sonuclar) {
     });
 
     html += `<h3 style="margin-top:25px">🎁 Profile Özel Ek Destek</h3>
-    <p style="color:#666; font-size:13px; margin-bottom:15px">Bu ürünlerle birlikte alındığında gelişime daha fazla destek sağlar.</p>
+    <p style="color:#666; font-size:13px; margin-bottom:15px">Birlikte alındığında gelişime daha fazla destek sağlar.</p>
     <div class="urun-grid">`;
 
     ekUrunSeti.forEach(urunKey => {
@@ -228,10 +285,9 @@ function oneriGoster(sonuclar) {
     html += `</div>`;
   }
 
-  // Sihirli Sulu Boyama Hediye Banner
   html += `
     <div class="hediye-banner">
-      🎨 <strong>Tüm siparişlerde:</strong> Sihirli Sulu Boyama Hediye! 
+      🎨 <strong>Tüm siparişlerde:</strong> Sihirli Sulu Boyama Hediye!
       <span>Motor beceri + yaratıcılık + renk algısı geliştirir ✨</span>
     </div>`;
 
