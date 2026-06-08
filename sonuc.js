@@ -3,7 +3,7 @@
 // ===================================
 const API_KEY = "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";
 
-async function geminiAnaliz(yasGrubu, sonuclar) {
+async function geminiAnaliz(yasGrubu, sonuclar, sorular, cevaplar) {
   const kategoriler = {
     motor: "Motor Beceri",
     dil: "Dil Gelişimi",
@@ -17,23 +17,33 @@ async function geminiAnaliz(yasGrubu, sonuclar) {
     .map(k => `${kategoriler[k]}: %${sonuclar[k]}`)
     .join(", ");
 
+  const soruCevaplar = sorular.map((soru, index) => {
+    const cevapIndex = cevaplar[index];
+    const cevapMetni = cevapIndex !== undefined ? soru.secenekler[parseInt(cevapIndex)] : "Cevaplanmadı";
+    return `- ${soru.soru} → ${cevapMetni}`;
+  }).join("\n");
+
   const promptText = `Sen Montessori Atölyesi'nin çocuk gelişim uzmanısın. Bir ebeveyn montessoriatolyesi.com sitesinde çocuğu için gelişim anketi doldurdu.
 
 Yaş grubu: ${yasGrubu}
 Gelişim profili: ${sorunlar || "Normal gelişim"}
 
+Ebeveynin verdiği cevaplar:
+${soruCevaplar}
+
 Lütfen şunları yaz:
-1. 2-3 cümlelik kısa ve samimi bir gelişim değerlendirmesi
+1. Bu cevaplara dayanarak 2-3 cümlelik kişisel bir gelişim değerlendirmesi
 2. Bu gelişim alanını destekleyen Montessori oyuncaklarının 2-3 somut faydası
 3. Ebeveyne 2 pratik öneri
 
 ÖNEMLİ KURALLAR:
 - Kesinlikle Türkçe yaz, başka dil kullanma
 - Yazım ve dilbilgisi kurallarına dikkat et
-- "montessoriatolyesi.com" sitesini ve ürünlerini öner
+- montessoriatolyesi.com sitesini ve ürünlerini öner
 - Montessori yönteminin bilimsel temelli olduğunu vurgula
 - Samimi ve destekleyici bir dil kullan
 - 200 kelimeyi geçme`;
+
   try {
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
@@ -190,7 +200,7 @@ window.onload = async function() {
   const yzDiv = document.getElementById("yz-analiz");
   if (yzDiv) {
     yzDiv.innerHTML = "<p style='color:#666; font-style:italic; text-align:center; padding:20px;'>🤖 Yapay zeka analiz yapıyor...</p>";
-    const analiz = await geminiAnaliz(yasGrubu, sonuclar);
+    const analiz = await geminiAnaliz(yasGrubu, sonuclar, sorular, cevaplar);
     if (analiz) {
       yzDiv.innerHTML = `
         <div style="background:#f3eff9; border-left:4px solid #4B3263; padding:20px; border-radius:10px; margin-bottom:25px;">
