@@ -1,8 +1,10 @@
-// API anahtarını localStorage'dan al, yoksa sor
-let GEMINI_API_KEY = localStorage.getItem("gemini_key");
-if (!GEMINI_API_KEY) {
-  GEMINI_API_KEY = prompt("Gemini API Anahtarı:");
-  if (GEMINI_API_KEY) localStorage.setItem("gemini_key", GEMINI_API_KEY);
+// ===================================
+// OPENROUTER API
+// ===================================
+let API_KEY = localStorage.getItem("api_key");
+if (!API_KEY) {
+  API_KEY = prompt("API Anahtarı:");
+  if (API_KEY) localStorage.setItem("api_key", API_KEY);
 }
 
 async function geminiAnaliz(yasGrubu, sonuclar) {
@@ -19,7 +21,7 @@ async function geminiAnaliz(yasGrubu, sonuclar) {
     .map(k => `${kategoriler[k]}: %${sonuclar[k]}`)
     .join(", ");
 
-  const prompt = `Sen bir çocuk gelişim uzmanısın. Bir ebeveyn çocuğu için gelişim anketi doldurdu.
+  const promptText = `Sen bir çocuk gelişim uzmanısın. Bir ebeveyn çocuğu için gelişim anketi doldurdu.
 
 Yaş grubu: ${yasGrubu}
 Gelişim profili: ${sorunlar || "Normal gelişim"}
@@ -32,17 +34,21 @@ Türkçe yaz, samimi ve destekleyici bir dil kullan. 150 kelimeyi geçme.`;
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      "https://openrouter.ai/api/v1/chat/completions",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEY}`
+        },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }]
+          model: "meta-llama/llama-3.1-8b-instruct:free",
+          messages: [{ role: "user", content: promptText }]
         })
       }
     );
     const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+    return data.choices[0].message.content;
   } catch (e) {
     return null;
   }
@@ -171,7 +177,7 @@ window.onload = async function() {
   grafikGoster(sonuclar);
   oneriGoster(sonuclar);
 
-  // Gemini YZ analizi
+  // YZ analizi
   const yzDiv = document.getElementById("yz-analiz");
   if (yzDiv) {
     yzDiv.innerHTML = "<p style='color:#666; font-style:italic; text-align:center; padding:20px;'>🤖 Yapay zeka analiz yapıyor...</p>";
