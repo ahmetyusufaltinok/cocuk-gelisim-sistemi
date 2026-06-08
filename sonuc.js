@@ -1,7 +1,7 @@
 // ===================================
 // OPENROUTER API
 // ===================================
-const API_KEY = "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";
+const API_KEY = "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";
 
 async function geminiAnaliz(yasGrubu, sonuclar) {
   const kategoriler = {
