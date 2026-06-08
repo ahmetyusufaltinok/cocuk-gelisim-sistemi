@@ -27,10 +27,13 @@ Lütfen şunları yaz:
 2. Bu gelişim alanını destekleyen Montessori oyuncaklarının 2-3 somut faydası
 3. Ebeveyne 2 pratik öneri
 
-Önemli: Montessori yönteminin bilimsel temelli olduğunu, çocuğun bağımsızlığını ve doğal gelişimini desteklediğini vurgula. montessoriatolyesi.com'daki ürünlerin bu gelişimi desteklediğini belirt.
-
-Türkçe yaz, samimi ve destekleyici bir dil kullan. 200 kelimeyi geçme.`;
-
+ÖNEMLİ KURALLAR:
+- Kesinlikle Türkçe yaz, başka dil kullanma
+- Yazım ve dilbilgisi kurallarına dikkat et
+- "montessoriatolyesi.com" sitesini ve ürünlerini öner
+- Montessori yönteminin bilimsel temelli olduğunu vurgula
+- Samimi ve destekleyici bir dil kullan
+- 200 kelimeyi geçme`;
   try {
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
