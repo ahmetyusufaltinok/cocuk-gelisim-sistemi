@@ -140,8 +140,10 @@ function cevapSec(soruIndex, secenekIndex, element) {
 // ===================================
 function sonrakiSoru() {
   if (cevaplar[mevcutSoru] === undefined) {
-    alert("Lütfen bir seçenek seçin!");
-    return;
+const kutu = document.getElementById("soru-kutusu");
+kutu.style.border = "2px solid #e74c3c";
+kutu.style.borderRadius = "12px";
+setTimeout(() => { kutu.style.border = "none"; }, 1500);    return;
   }
   if (mevcutSoru < aktifSorular.length - 1) {
     mevcutSoru++;
