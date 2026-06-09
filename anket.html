@@ -3,43 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gelişim Anketi</title>
-<link rel="stylesheet" href="style.css"></head>
-<body>
+  <title>Gelişim Anketi | Montessori Atölyesi</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body style="font-family:'Nunito',Arial,sans-serif; background:#f9f7fc; min-height:100vh;">
 
   <!-- YAŞ SEÇİM EKRANI -->
   <div class="anket-container" id="yas-secim">
-    <h1>Çocuğunuzun Yaşı</h1>
-    <p>Doğru öneriler için yaş grubunu seçin.</p>
+
+    <div style="text-align:center; margin-bottom:30px;">
+      <a href="index.html" style="color:#4B3263; font-size:13px; text-decoration:none;">← Ana Sayfaya Dön</a>
+      <div style="font-size:40px; margin:15px 0;">🌿</div>
+      <h1 style="color:#292D3A; font-size:26px; font-weight:900; margin-bottom:8px;">Çocuğunuzun Yaşı Kaç?</h1>
+      <p style="color:#888; font-size:15px;">Doğru analiz için yaş grubunu seçin</p>
+    </div>
+
     <div class="yas-grid">
       <button class="yas-btn" onclick="yasSec('6-12ay')">
         <span class="yas-emoji">👶</span>
         <span class="yas-label">6-12 Ay</span>
+        <span class="yas-alt">Bebek dönemi</span>
       </button>
       <button class="yas-btn" onclick="yasSec('1-2yas')">
         <span class="yas-emoji">🧒</span>
         <span class="yas-label">1-2 Yaş</span>
+        <span class="yas-alt">Keşif dönemi</span>
       </button>
       <button class="yas-btn" onclick="yasSec('3-4yas')">
         <span class="yas-emoji">👦</span>
         <span class="yas-label">3-4 Yaş</span>
+        <span class="yas-alt">Oyun dönemi</span>
       </button>
       <button class="yas-btn" onclick="yasSec('5-6yas')">
         <span class="yas-emoji">🎒</span>
         <span class="yas-label">5-6 Yaş</span>
+        <span class="yas-alt">Okul öncesi</span>
       </button>
     </div>
+
+    <p style="text-align:center; color:#bbb; font-size:12px; margin-top:20px;">✅ Ücretsiz · 5 Dakika · Bilimsel Temelli</p>
   </div>
 
   <!-- ANKET EKRANI -->
   <div class="anket-container" id="anket-bolumu" style="display:none">
+
     <div class="anket-header">
-      <h1>Çocuk Gelişim Anketi</h1>
-      <p>Çocuğunuzu gözlemleyerek cevaplayın.</p>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <button onclick="document.getElementById('anket-bolumu').style.display='none'; document.getElementById('yas-secim').style.display='block';" style="background:none; border:none; color:#4B3263; font-size:13px; cursor:pointer;">← Geri</button>
+        <span id="soru-sayac" style="color:#888; font-size:13px;">Soru 1 / 15</span>
+      </div>
       <div class="ilerleme-bar">
         <div class="ilerleme-dolu" id="ilerleme"></div>
       </div>
-      <p id="soru-sayac">Soru 1 / 15</p>
+      <h2 style="text-align:center; color:#292D3A; font-size:16px; margin-top:10px; font-weight:700;">Çocuk Gelişim Anketi</h2>
     </div>
 
     <div class="soru-kutusu" id="soru-kutusu"></div>
@@ -48,7 +65,9 @@
       <button class="btn-geri" id="btn-geri" onclick="oncekiSoru()">← Geri</button>
       <button class="btn-ileri" id="btn-ileri" onclick="sonrakiSoru()">İleri →</button>
     </div>
+
   </div>
 
-<script src="anket.js"></script></body>
+  <script src="anket.js"></script>
+</body>
 </html>
