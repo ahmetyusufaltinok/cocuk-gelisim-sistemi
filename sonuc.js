@@ -1,6 +1,3 @@
-// ===================================
-// OPENROUTER API
-// ===================================
 const API_KEY = "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";
 
 async function geminiAnaliz(yasGrubu, sonuclar, sorular, cevaplar) {
@@ -33,15 +30,18 @@ ${soruCevaplar}
 
 Lütfen şunları yaz:
 1. Bu cevaplara dayanarak 2-3 cümlelik kişisel bir gelişim değerlendirmesi
-2. Bu gelişim alanını destekleyen Montessori yönteminin bilimsel temelli olduğunu anlat
-3. Ebeveyne 2-3 pratik öneri sun (ev içinde)
+2. Bu gelişim alanını destekleyen Montessori oyuncaklarının 2-3 somut faydası
+3. Ebeveyne 2 pratik öneri
 
 ÖNEMLİ KURALLAR:
-- Kesinlikle Türkçe karakterlerle yaz, başka dil kullanma
-- Yazım ve dilbilgisi kurallarına dikkat et
+- SADECE Türkçe yaz, tek bir yabancı kelime bile kullanma
+- Türkçe karşılığı olan kelimelerin İngilizce veya yanlış halini kullanma
+- "milestone" yerine "gelişim basamağı" yaz
+- montessoriatolyesi.com sitesini ve ürünlerini öner
 - Montessori yönteminin bilimsel temelli olduğunu vurgula
-- Samimi ve destekleyici bir dil kullan
-- 200 kelimeyi geçme`;
+- Samimi, sıcak ve destekleyici bir anne-baba diline uygun yaz
+- 200 kelimeyi geçme
+- Teknik terim kullanma, ebeveynin anlayacağı sade Türkçe kullan`;
 
   try {
     const response = await fetch(
@@ -67,9 +67,6 @@ Lütfen şunları yaz:
   }
 }
 
-// ===================================
-// ÜRÜN VERİTABANI
-// ===================================
 const urunler = {
   aktivitePanosu: {
     isim: "Montessori Aktivite Panosu",
@@ -115,9 +112,6 @@ const urunler = {
   }
 };
 
-// ===================================
-// KATEGORİ AÇIKLAMALARI
-// ===================================
 const kategoriBilgi = {
   motor: {
     baslik: "Motor Beceri Desteği",
@@ -156,9 +150,6 @@ const kategoriBilgi = {
   }
 };
 
-// ===================================
-// ANALİZ FONKSİYONU
-// ===================================
 function analizeEt(cevaplar, sorular) {
   let puanlar = { motor: 0, dil: 0, sosyal: 0, baglanma: 0, dehb: 0 };
   let sayilar = { motor: 0, dil: 0, sosyal: 0, baglanma: 0, dehb: 0 };
@@ -178,9 +169,6 @@ function analizeEt(cevaplar, sorular) {
   return sonuclar;
 }
 
-// ===================================
-// SAYFA YÜKLENINCE
-// ===================================
 window.onload = async function() {
   const cevaplar = JSON.parse(localStorage.getItem("cevaplar"));
   const sorular = JSON.parse(localStorage.getItem("sorular"));
@@ -193,31 +181,33 @@ window.onload = async function() {
 
   const sonuclar = analizeEt(cevaplar, sorular);
 
+  // 1. GRAFİK
   grafikGoster(sonuclar);
-  oneriGoster(sonuclar);
 
+  // 2. YZ ANALİZİ — animasyon göster, sonuç bekle
   const yzDiv = document.getElementById("yz-analiz");
   if (yzDiv) {
-   yzDiv.innerHTML = `
-  <div class="yz-yukleniyor">
-    <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;">
-      <span class="yz-emoji" style="animation-delay:0s;">🧩</span>
-      <span class="yz-emoji" style="animation-delay:0.2s;">🔍</span>
-      <span class="yz-emoji" style="animation-delay:0.4s;">⭐</span>
-    </div>
-    <p class="yz-baslik">Rapor hazırlanıyor...</p>
-    <p class="yz-alt">Çocuğunuz için özel analiz yapılıyor</p>
-    <div class="yz-progress-bar">
-      <div class="yz-progress-fill"></div>
-    </div>
-    <div style="display:flex; justify-content:center; gap:10px;">
-      <span class="yz-wiggle" style="animation-delay:0s;">🌟</span>
-      <span class="yz-wiggle" style="animation-delay:0.2s;">🎨</span>
-      <span class="yz-wiggle" style="animation-delay:0.4s;">🧸</span>
-      <span class="yz-wiggle" style="animation-delay:0.6s;">🌈</span>
-      <span class="yz-wiggle" style="animation-delay:0.8s;">🎯</span>
-    </div>
-  </div>`;
+    yzDiv.innerHTML = `
+      <div class="yz-yukleniyor">
+        <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;">
+          <span class="yz-emoji" style="animation-delay:0s;">🧩</span>
+          <span class="yz-emoji" style="animation-delay:0.2s;">🔍</span>
+          <span class="yz-emoji" style="animation-delay:0.4s;">⭐</span>
+        </div>
+        <p class="yz-baslik">Rapor hazırlanıyor...</p>
+        <p class="yz-alt">Çocuğunuz için özel analiz yapılıyor</p>
+        <div class="yz-progress-bar">
+          <div class="yz-progress-fill"></div>
+        </div>
+        <div style="display:flex; justify-content:center; gap:10px;">
+          <span class="yz-wiggle" style="animation-delay:0s;">🌟</span>
+          <span class="yz-wiggle" style="animation-delay:0.2s;">🎨</span>
+          <span class="yz-wiggle" style="animation-delay:0.4s;">🧸</span>
+          <span class="yz-wiggle" style="animation-delay:0.6s;">🌈</span>
+          <span class="yz-wiggle" style="animation-delay:0.8s;">🎯</span>
+        </div>
+      </div>`;
+
     const analiz = await geminiAnaliz(yasGrubu, sonuclar, sorular, cevaplar);
     if (analiz) {
       yzDiv.innerHTML = `
@@ -229,11 +219,11 @@ window.onload = async function() {
       yzDiv.innerHTML = "";
     }
   }
+
+  // 3. ÖNERİLER
+  oneriGoster(sonuclar);
 };
 
-// ===================================
-// GRAFİK
-// ===================================
 function grafikGoster(sonuclar) {
   const div = document.getElementById("profil-grafik");
   const isimler = {
@@ -266,9 +256,6 @@ function grafikGoster(sonuclar) {
   div.innerHTML = html;
 }
 
-// ===================================
-// ÖNERİLER
-// ===================================
 function oneriGoster(sonuclar) {
   const div = document.getElementById("oneri-kutusu");
   const destekGereken = Object.keys(sonuclar).filter(k => sonuclar[k] > 30 && k in kategoriBilgi);
