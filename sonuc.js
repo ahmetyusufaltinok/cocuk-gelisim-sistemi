@@ -56,7 +56,7 @@ Lütfen şunları yaz:
           "X-Title": "Cocuk Gelisim Sistemi"
         },
         body: JSON.stringify({
-          model: "openrouter/free",
+        model: "meta-llama/llama-3.3-70b-instruct:free",
           messages: [{ role: "user", content: promptText }]
         })
       }
