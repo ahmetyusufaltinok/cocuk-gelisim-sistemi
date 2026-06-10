@@ -36,13 +36,13 @@ Lütfen şunları yaz:
 ÖNEMLİ KURALLAR:
 - SADECE Türkçe yaz, tek bir yabancı kelime bile kullanma
 - Türkçe karşılığı olan kelimelerin İngilizce veya yanlış halini kullanma
-- "milestone" yerine "gelişim basamağı" yaz
 - montessoriatolyesi.com sitesini ve ürünlerini öner
 - Montessori yönteminin bilimsel temelli olduğunu vurgula
 - Samimi, sıcak ve destekleyici bir anne-baba diline uygun yaz
 - 200 kelimeyi geçme
 - Teknik terim kullanma, ebeveynin anlayacağı sade Türkçe kullan`;
 
+  // Önce Nex-N2-Pro dene
   try {
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
@@ -55,16 +55,44 @@ Lütfen şunları yaz:
           "X-Title": "Cocuk Gelisim Sistemi"
         },
         body: JSON.stringify({
-          model: "openrouter/free",
+          model: "nex-agi/nex-n2-pro:free",
           messages: [{ role: "user", content: promptText }]
         })
       }
     );
     const data = await response.json();
-    return data.choices[0].message.content;
+    if (data.choices && data.choices[0] && data.choices[0].message) {
+      return data.choices[0].message.content;
+    }
+    throw new Error("no response");
   } catch (e) {
-    return null;
+    // Olmadı, openrouter/free dene
+    try {
+      const response2 = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`,
+            "HTTP-Referer": "https://ahmetyusufaltinok.github.io",
+            "X-Title": "Cocuk Gelisim Sistemi"
+          },
+          body: JSON.stringify({
+            model: "openrouter/free",
+            messages: [{ role: "user", content: promptText }]
+          })
+        }
+      );
+      const data2 = await response2.json();
+      if (data2.choices && data2.choices[0] && data2.choices[0].message) {
+        return data2.choices[0].message.content;
+      }
+    } catch (e2) {
+      return null;
+    }
   }
+  return null;
 }
 
 const urunler = {
@@ -184,7 +212,7 @@ window.onload = async function() {
   // 1. GRAFİK
   grafikGoster(sonuclar);
 
-  // 2. YZ ANALİZİ — animasyon göster, sonuç bekle
+  // 2. YZ ANALİZİ
   const yzDiv = document.getElementById("yz-analiz");
   if (yzDiv) {
     yzDiv.innerHTML = `
