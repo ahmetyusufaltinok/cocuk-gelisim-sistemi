@@ -33,11 +33,11 @@ ${soruCevaplar}
 
 Lütfen şunları yaz:
 1. Bu cevaplara dayanarak 2-3 cümlelik kişisel bir gelişim değerlendirmesi
-2. Bu gelişim alanını destekleyen Montessori oyuncaklarının 2-3 somut faydası
-3. Ebeveyne 2 pratik öneri
+2. Bu gelişim alanını destekleyen Montessori yönteminin bilimsel temelli olduğunu anlat
+3. Ebeveyne 2-3 pratik öneri sun (ev içinde)
 
 ÖNEMLİ KURALLAR:
-- Kesinlikle Türkçe yaz, başka dil kullanma
+- Kesinlikle Türkçe karakterlerle yaz, başka dil kullanma
 - Yazım ve dilbilgisi kurallarına dikkat et
 - Montessori yönteminin bilimsel temelli olduğunu vurgula
 - Samimi ve destekleyici bir dil kullan
