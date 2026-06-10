@@ -3,35 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gelişim Raporu</title>
+  <title>Gelişim Raporu | Montessori Atölyesi</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="font-family:'Nunito',Arial,sans-serif; background:#f9f7fc; min-height:100vh;">
 
   <div class="sonuc-container">
 
+    <!-- BAŞLIK -->
     <div class="sonuc-header">
-      <!-- YZ ANALİZ KUTUSU -->
-<div id="yz-analiz"></div>
-      <h1>Gelişim Raporu</h1>
-      <p>Anket sonuçlarınıza göre kişiselleştirilmiş öneriler aşağıda listelenmiştir.</p>
+      <div style="font-size:40px; margin-bottom:10px;">📊</div>
+      <h1 style="color:#292D3A; font-size:26px; font-weight:900; margin-bottom:8px;">Gelişim Raporu</h1>
+      <p style="color:#888; font-size:15px; margin:0;">Çocuğunuzun kişiselleştirilmiş analizi hazır!</p>
     </div>
 
-    <div class="profil-grafik" id="profil-grafik">
-      <!-- Grafik JS ile gelecek -->
+    <!-- GELİŞİM PROFİLİ GRAFİĞİ -->
+    <div class="profil-grafik" id="profil-grafik"></div>
+
+    <!-- ÖNERİLER -->
+    <div class="oneri-kutusu" id="oneri-kutusu"></div>
+
+    <!-- YZ ANALİZ KUTUSU -->
+    <div id="yz-analiz">
+      <div class="yz-yukleniyor">
+        <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;">
+          <span class="yz-emoji" style="animation-delay:0s;">🧩</span>
+          <span class="yz-emoji" style="animation-delay:0.2s;">🔍</span>
+          <span class="yz-emoji" style="animation-delay:0.4s;">⭐</span>
+        </div>
+        <p class="yz-baslik">Rapor hazırlanıyor...</p>
+        <p class="yz-alt">Çocuğunuz için özel analiz yapılıyor</p>
+        <div class="yz-progress-bar">
+          <div class="yz-progress-fill"></div>
+        </div>
+        <div style="display:flex; justify-content:center; gap:10px; margin-top:16px;">
+          <span class="yz-wiggle" style="animation-delay:0s;">🌟</span>
+          <span class="yz-wiggle" style="animation-delay:0.2s;">🎨</span>
+          <span class="yz-wiggle" style="animation-delay:0.4s;">🧸</span>
+          <span class="yz-wiggle" style="animation-delay:0.6s;">🌈</span>
+          <span class="yz-wiggle" style="animation-delay:0.8s;">🎯</span>
+        </div>
+      </div>
     </div>
 
-    <div class="oneri-kutusu" id="oneri-kutusu">
-      <!-- Öneriler JS ile gelecek -->
-    </div>
-
-    <div class="butonlar" style="justify-content:center; margin-top:30px;">
-      <a href="anket.html" class="btn">Anketi Tekrarla</a>
+    <!-- BUTON -->
+    <div style="text-align:center; margin-top:30px; padding-bottom:40px;">
+      <a href="anket.html" class="btn">🔄 Anketi Tekrarla</a>
     </div>
 
   </div>
 
- <script src="algoritma.js"></script>
-<script src="sonuc.js"></script>
+  <script src="algoritma.js"></script>
+  <script src="sonuc.js"></script>
 </body>
 </html>
