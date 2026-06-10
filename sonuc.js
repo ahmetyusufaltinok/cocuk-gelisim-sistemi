@@ -44,28 +44,41 @@ Lütfen şunları yaz:
 - Samimi ve destekleyici bir dil kullan
 - 200 kelimeyi geçme`;
 
-  try {
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${API_KEY}`,
-          "HTTP-Referer": "https://ahmetyusufaltinok.github.io",
-          "X-Title": "Cocuk Gelisim Sistemi"
-        },
-        body: JSON.stringify({
-        model: "meta-llama/llama-3.3-70b-instruct:free",
-          messages: [{ role: "user", content: promptText }]
-        })
+  // Sırayla denenecek modeller
+  const modeller = [
+    "meta-llama/llama-3.3-70b-instruct:free",
+    "qwen/qwen-2.5-72b-instruct:free",
+    "google/gemini-2.0-flash-exp:free",
+    "mistralai/mistral-7b-instruct:free"
+  ];
+
+  for (const model of modeller) {
+    try {
+      const response = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`,
+            "HTTP-Referer": "https://ahmetyusufaltinok.github.io",
+            "X-Title": "Cocuk Gelisim Sistemi"
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: [{ role: "user", content: promptText }]
+          })
+        }
+      );
+      const data = await response.json();
+      if (data.choices && data.choices[0] && data.choices[0].message) {
+        return data.choices[0].message.content;
       }
-    );
-    const data = await response.json();
-    return data.choices[0].message.content;
-  } catch (e) {
-    return null;
+    } catch (e) {
+      continue;
+    }
   }
+  return null;
 }
 
 // ===================================
