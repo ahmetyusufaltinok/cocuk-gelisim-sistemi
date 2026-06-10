@@ -6,6 +6,69 @@
   <title>Gelişim Raporu | Montessori Atölyesi</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @keyframes yz-bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.15); }
+    }
+    @keyframes yz-wiggle {
+      0%, 100% { transform: rotate(-8deg); }
+      50% { transform: rotate(8deg); }
+    }
+    @keyframes yz-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    @keyframes yz-progress {
+      0% { width: 10%; }
+      50% { width: 85%; }
+      100% { width: 10%; }
+    }
+    .yz-yukleniyor {
+      background: #fef9ff;
+      border: 2px dashed #c8a8e8;
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      margin: 25px 0;
+    }
+    .yz-emoji {
+      font-size: 32px;
+      display: inline-block;
+      animation: yz-bounce 0.8s ease-in-out infinite;
+    }
+    .yz-wiggle {
+      font-size: 20px;
+      display: inline-block;
+      animation: yz-wiggle 1s ease-in-out infinite;
+    }
+    .yz-baslik {
+      font-size: 22px;
+      font-weight: 800;
+      color: #4B3263;
+      margin: 0 0 8px;
+      animation: yz-pulse 1.5s ease-in-out infinite;
+    }
+    .yz-alt {
+      font-size: 14px;
+      color: #7a5fa0;
+      margin: 0 0 16px;
+    }
+    .yz-progress-bar {
+      background: #e8d8f5;
+      border-radius: 50px;
+      height: 12px;
+      overflow: hidden;
+      max-width: 280px;
+      margin: 0 auto 16px;
+    }
+    .yz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4B3263, #9b59b6);
+      border-radius: 50px;
+      animation: yz-progress 2s ease-in-out infinite;
+    }
+  </style>
 </head>
 <body style="font-family:'Nunito',Arial,sans-serif; background:#f9f7fc; min-height:100vh;">
 
@@ -18,13 +81,10 @@
       <p style="color:#888; font-size:15px; margin:0;">Çocuğunuzun kişiselleştirilmiş analizi hazır!</p>
     </div>
 
-    <!-- GELİŞİM PROFİLİ GRAFİĞİ -->
+    <!-- 1. GELİŞİM PROFİLİ GRAFİĞİ -->
     <div class="profil-grafik" id="profil-grafik"></div>
 
-    <!-- ÖNERİLER -->
-    <div class="oneri-kutusu" id="oneri-kutusu"></div>
-
-    <!-- YZ ANALİZ KUTUSU -->
+    <!-- 2. YZ ANALİZ KUTUSU -->
     <div id="yz-analiz">
       <div class="yz-yukleniyor">
         <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;">
@@ -37,7 +97,7 @@
         <div class="yz-progress-bar">
           <div class="yz-progress-fill"></div>
         </div>
-        <div style="display:flex; justify-content:center; gap:10px; margin-top:16px;">
+        <div style="display:flex; justify-content:center; gap:10px;">
           <span class="yz-wiggle" style="animation-delay:0s;">🌟</span>
           <span class="yz-wiggle" style="animation-delay:0.2s;">🎨</span>
           <span class="yz-wiggle" style="animation-delay:0.4s;">🧸</span>
@@ -46,6 +106,9 @@
         </div>
       </div>
     </div>
+
+    <!-- 3. ÖNERİLER -->
+    <div class="oneri-kutusu" id="oneri-kutusu"></div>
 
     <!-- BUTON -->
     <div style="text-align:center; margin-top:30px; padding-bottom:40px;">
