@@ -39,45 +39,32 @@ Lütfen şunları yaz:
 ÖNEMLİ KURALLAR:
 - Kesinlikle Türkçe yaz, başka dil kullanma
 - Yazım ve dilbilgisi kurallarına dikkat et
-- montessoriatolyesi.com sitesini ve ürünlerini öner
 - Montessori yönteminin bilimsel temelli olduğunu vurgula
 - Samimi ve destekleyici bir dil kullan
 - 200 kelimeyi geçme`;
 
-  // Sırayla denenecek modeller
- const modeller = [
-    "openrouter/free",
-    "meta-llama/llama-3.3-70b-instruct:free",
-    "deepseek/deepseek-r1:free",
-    "qwen/qwen3-235b-a22b:free"
-  ];
-  for (const model of modeller) {
-    try {
-      const response = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`,
-            "HTTP-Referer": "https://ahmetyusufaltinok.github.io",
-            "X-Title": "Cocuk Gelisim Sistemi"
-          },
-          body: JSON.stringify({
-            model: model,
-            messages: [{ role: "user", content: promptText }]
-          })
-        }
-      );
-      const data = await response.json();
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        return data.choices[0].message.content;
+  try {
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEY}`,
+          "HTTP-Referer": "https://ahmetyusufaltinok.github.io",
+          "X-Title": "Cocuk Gelisim Sistemi"
+        },
+        body: JSON.stringify({
+          model: "openrouter/free",
+          messages: [{ role: "user", content: promptText }]
+        })
       }
-    } catch (e) {
-      continue;
-    }
+    );
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (e) {
+    return null;
   }
-  return null;
 }
 
 // ===================================
