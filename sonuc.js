@@ -198,7 +198,26 @@ window.onload = async function() {
 
   const yzDiv = document.getElementById("yz-analiz");
   if (yzDiv) {
-    yzDiv.innerHTML = "<p style='color:#666; font-style:italic; text-align:center; padding:20px;'>🤖 Yapay zeka analiz yapıyor...</p>";
+   yzDiv.innerHTML = `
+  <div class="yz-yukleniyor">
+    <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;">
+      <span class="yz-emoji" style="animation-delay:0s;">🧩</span>
+      <span class="yz-emoji" style="animation-delay:0.2s;">🔍</span>
+      <span class="yz-emoji" style="animation-delay:0.4s;">⭐</span>
+    </div>
+    <p class="yz-baslik">Rapor hazırlanıyor...</p>
+    <p class="yz-alt">Çocuğunuz için özel analiz yapılıyor</p>
+    <div class="yz-progress-bar">
+      <div class="yz-progress-fill"></div>
+    </div>
+    <div style="display:flex; justify-content:center; gap:10px;">
+      <span class="yz-wiggle" style="animation-delay:0s;">🌟</span>
+      <span class="yz-wiggle" style="animation-delay:0.2s;">🎨</span>
+      <span class="yz-wiggle" style="animation-delay:0.4s;">🧸</span>
+      <span class="yz-wiggle" style="animation-delay:0.6s;">🌈</span>
+      <span class="yz-wiggle" style="animation-delay:0.8s;">🎯</span>
+    </div>
+  </div>`;
     const analiz = await geminiAnaliz(yasGrubu, sonuclar, sorular, cevaplar);
     if (analiz) {
       yzDiv.innerHTML = `
